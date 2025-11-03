@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tournament Entry & Payment</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #3b1f0b, #1c0a0a);
+            color: #f0dca8;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #f4f851;
+            margin-bottom: 0;
+        }
+
+        .tournament-info {
+            font-size: 1.2em;
+            margin: 10px 0 30px 0;
+            letter-spacing: 1.5px;
+        }
+
+        .entry-fee {
+            font-weight: bold;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #82cefa;
+        }
+
+        .prizes {
+            margin: 30px 0;
+            color: #ff4b4b;
+            font-weight: bold;
+            font-size: 1.5em;
+            text-decoration: underline;
+        }
+
+        .prizes-list {
+            font-weight: normal;
+            font-size: 1.2em;
+            color: #f9b3b3;
+            margin-bottom: 40px;
+        }
+
+        button.pay-btn {
+            background: #44c767;
+            border-radius: 28px;
+            border: 1px solid #18ab29;
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 20px;
+            padding: 16px 31px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #2f6627;
+            margin-bottom: 10px;
+        }
+
+        button.pay-btn:hover {
+            background: #5cbf2a;
+        }
+
+        #upiInfo {
+            font-weight: bold;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #e9f783;
+        }
+
+        img.qr-code {
+            margin-top: 20px;
+            width: 250px;
+            height: 250px;
+            border: 5px solid #f4f851;
+            border-radius: 12px;
+        }
+
+        .footer {
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            .prizes, .entry-fee {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>TOURNAMENT</h1>
+
+    <div class="tournament-info">
+        <p><strong>TIME:</strong> 24 SEP | 6 P.M.</p>
+        <p><strong>CATEGORY:</strong> FULL MAP | <strong>MAX PLAYER:</strong> 32</p>
+    </div>
+
+    <div class="entry-fee">ENTRY FEE: ₹ 20</div>
+
+    <div class="prizes">WINNING PRIZES</div>
+    <div class="prizes-list">
+        <p>1<sup>st</sup> - ₹ 300</p>
+        <p>2<sup>nd</sup> - ₹ 100</p>
+    </div>
+
+    <button class="pay-btn" onclick="payUPI()">Pay Entry Fee via UPI</button>
+
+    <div id="upiInfo" style="display:none;">
+        <p>Send ₹20 to UPI ID: <strong>6295134471@axl</strong></p>
+        <p>Or scan QR code below:</p>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?data=upi://pay?pa=6295134471@axl&pn=TournamentEntry&am=20&cu=INR&tn=TournamentEntryFee&mode=02" alt="UPI QR Code" class="qr-code" />
+    </div>
+
+    <script>
+        function payUPI() {
+            const upiId = "6295134471@axl";
+            const amount = 20;
+            const name = "TournamentEntry";
+            const txnNote = "Tournament Entry Fee";
+            const url = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR&tn=${encodeURIComponent(txnNote)}&mode=02`;
+
+            // Try to open UPI app via deeplink
+            window.location.href = url;
+
+            // Show UPI info and QR code
+            document.getElementById("upiInfo").style.display = "block";
+        }
+    </script>
+
+    <div class="footer">© 2023 Tournament. All rights reserved.</div>
+
+</body>
+</html>
